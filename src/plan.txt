@@ -1,0 +1,25 @@
+What is cache
+- key value
+- concurrent
+- out of memory
+- distributed
+- TTL
+- supported implementations
+- JSR
+- cache manager
+- avoid boilerplace if cache ! contains code
+- avoid double checking https://www.javaworld.com/article/2074979/java-concurrency/double-checked-locking--clever--but-broken.html
+
+x Set up
+x Cache without cache name
+x Two caches without cache name
+x Specify cache name
+
+x Conditional caching
+x CachePut
+x CacheConfig
+x Specify cache key generator
+
+Caching annotation
+CacheEvict using annotation
+CacheEvict programmatically

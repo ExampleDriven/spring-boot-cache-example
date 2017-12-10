@@ -4,11 +4,13 @@ import org.exampledriven.springcache.domain.Account;
 import org.exampledriven.springcache.domain.Transfer;
 import org.exampledriven.springcache.repository.TransferRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 @Service
+@CacheConfig(cacheNames = "transfer", keyGenerator = "TransferKeyGenerator")
 public class BankService {
 
     @Autowired
@@ -20,7 +22,7 @@ public class BankService {
 
     }
 
-    @Cacheable(value = "transfer", unless = "#result?.status?.name() == 'IN_PROGRESS'", key="#id")
+    @Cacheable(unless = "#result?.status?.name() == 'IN_PROGRESS'")
     public Transfer readTransfer(int id, boolean searchArchives) {
         Transfer transfer = transferRepository.readTransfer(id);
 
@@ -31,7 +33,9 @@ public class BankService {
         return transfer;
     }
 
-    @CachePut(value = "transfer", key="#id")
+    //keyGenerator could be locally overwritten like this
+    //@CachePut(key = "#id")
+    @CachePut
     public Transfer completeTransfer(int id, boolean smsAuthenticated, boolean cheapTransfer) {
 
         //log if smsAuthentication was used
