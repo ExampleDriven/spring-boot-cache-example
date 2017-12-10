@@ -38,7 +38,7 @@ public class BankServiceTest {
 
         verify(transferRepository, times(2)).readTransfer(transfer.getId());
 
-        bankService.completeTransfer(transfer);
+        bankService.completeTransfer(transfer.getId());
 
         Transfer transfer3 = bankService.readTransfer(transfer.getId());
         Transfer transfer4 = bankService.readTransfer(transfer.getId());
@@ -46,7 +46,7 @@ public class BankServiceTest {
         assertEquals(transfer, transfer3);
         assertEquals(transfer, transfer4);
 
-        verify(transferRepository, times(3)).readTransfer(transfer.getId());
+        verify(transferRepository, times(2)).readTransfer(transfer.getId());
 
     }
 

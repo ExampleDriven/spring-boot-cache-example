@@ -44,5 +44,13 @@ public class TransferRepository {
         return transfer;
     }
 
+    public Transfer completeTransfer(int id) {
+        Transfer transfer = transfers.get(id);
+        if (transfer != null) {
+            transfer.setStatus(Transfer.STATUS.COMPLETE);
+        }
+        return transfer;
+    }
+
 
 }

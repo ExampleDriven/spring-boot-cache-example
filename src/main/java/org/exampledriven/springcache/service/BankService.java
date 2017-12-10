@@ -4,6 +4,7 @@ import org.exampledriven.springcache.domain.Account;
 import org.exampledriven.springcache.domain.Transfer;
 import org.exampledriven.springcache.repository.TransferRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
@@ -24,9 +25,11 @@ public class BankService {
         return transferRepository.readTransfer(id);
     }
 
-    public Transfer completeTransfer(Transfer transfer) {
-        transfer.setStatus(Transfer.STATUS.COMPLETE);
-        return transfer;
+    @CachePut(value = "transfer")
+    public Transfer completeTransfer(int id) {
+
+        return transferRepository.completeTransfer(id);
+
     }
 
 }
