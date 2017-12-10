@@ -1,0 +1,7 @@
+logging:
+  level:
+    org.exampledriven: DEBUG
+spring:
+  cache:
+    jcache:
+      config: ehcache3.xml
