@@ -2,7 +2,7 @@ package org.exampledriven.springcache.domain;
 
 public class Transfer {
 
-    enum STATUS{IN_PROGRESS, COMPLETE}
+    public enum STATUS{IN_PROGRESS, COMPLETE}
 
     private int id;
     private int amount;

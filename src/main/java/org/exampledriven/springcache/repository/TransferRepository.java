@@ -23,6 +23,7 @@ public class TransferRepository {
         transfer.setFromAccount(fromAccount);
         transfer.setToAccount(toAccount);
         transfer.setId(transfers.size());
+        transfer.setStatus(Transfer.STATUS.IN_PROGRESS);
 
         transfers.put(transfer.getId(), transfer);
 
@@ -34,7 +35,13 @@ public class TransferRepository {
     public Transfer readTransfer(int id) {
         logger.debug("Reading transfer " + id);
 
-        return transfers.get(id);
+        Transfer transfer = transfers.get(id);
+
+        if (transfer != null) {
+            logger.debug("Found transfer " + transfer);
+        }
+
+        return transfer;
     }
 
 

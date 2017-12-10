@@ -19,9 +19,14 @@ public class BankService {
 
     }
 
-    @Cacheable("transfer")
+    @Cacheable(value = "transfer", unless = "#result.status.name() == 'IN_PROGRESS'")
     public Transfer readTransfer(int id) {
         return transferRepository.readTransfer(id);
+    }
+
+    public Transfer completeTransfer(Transfer transfer) {
+        transfer.setStatus(Transfer.STATUS.COMPLETE);
+        return transfer;
     }
 
 }
