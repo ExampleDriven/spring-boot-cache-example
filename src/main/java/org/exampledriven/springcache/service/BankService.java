@@ -20,7 +20,7 @@ public class BankService {
 
     }
 
-    @Cacheable(value = "transfer", unless = "#result?.status?.name() == 'IN_PROGRESS'")
+    @Cacheable(value = "transfer", unless = "#result?.status?.name() == 'IN_PROGRESS'", key="#id")
     public Transfer readTransfer(int id, boolean searchArchives) {
         Transfer transfer = transferRepository.readTransfer(id);
 
@@ -31,7 +31,7 @@ public class BankService {
         return transfer;
     }
 
-    @CachePut(value = "transfer")
+    @CachePut(value = "transfer", key="#id")
     public Transfer completeTransfer(int id, boolean smsAuthenticated, boolean cheapTransfer) {
 
         //log if smsAuthentication was used

@@ -52,7 +52,7 @@ public class BankServiceTest {
 
     @Test
     public void handleEmpty() {
-        assertNull(bankService.readTransfer(-1));
+        assertNull(bankService.readTransfer(-1, false));
     }
 
 }
