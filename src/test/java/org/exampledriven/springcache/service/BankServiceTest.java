@@ -30,18 +30,18 @@ public class BankServiceTest {
 
         Transfer transfer = bankService.createTransfer(new Account(), new Account(), 1);
 
-        Transfer transfer1 = bankService.readTransfer(transfer.getId());
-        Transfer transfer2 = bankService.readTransfer(transfer.getId());
+        Transfer transfer1 = bankService.readTransfer(transfer.getId(), false);
+        Transfer transfer2 = bankService.readTransfer(transfer.getId(), false);
 
         assertEquals(transfer, transfer1);
         assertEquals(transfer, transfer2);
 
         verify(transferRepository, times(2)).readTransfer(transfer.getId());
 
-        bankService.completeTransfer(transfer.getId());
+        bankService.completeTransfer(transfer.getId(), true, true);
 
-        Transfer transfer3 = bankService.readTransfer(transfer.getId());
-        Transfer transfer4 = bankService.readTransfer(transfer.getId());
+        Transfer transfer3 = bankService.readTransfer(transfer.getId(), false);
+        Transfer transfer4 = bankService.readTransfer(transfer.getId(), false);
 
         assertEquals(transfer, transfer3);
         assertEquals(transfer, transfer4);

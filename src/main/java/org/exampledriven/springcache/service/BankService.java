@@ -21,12 +21,21 @@ public class BankService {
     }
 
     @Cacheable(value = "transfer", unless = "#result?.status?.name() == 'IN_PROGRESS'")
-    public Transfer readTransfer(int id) {
-        return transferRepository.readTransfer(id);
+    public Transfer readTransfer(int id, boolean searchArchives) {
+        Transfer transfer = transferRepository.readTransfer(id);
+
+        if (transfer == null && searchArchives) {
+            //Search the archives too
+        }
+
+        return transfer;
     }
 
     @CachePut(value = "transfer")
-    public Transfer completeTransfer(int id) {
+    public Transfer completeTransfer(int id, boolean smsAuthenticated, boolean cheapTransfer) {
+
+        //log if smsAuthentication was used
+        //charge transfer cheap of expensive transfer price
 
         return transferRepository.completeTransfer(id);
 
