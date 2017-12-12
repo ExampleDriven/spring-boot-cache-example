@@ -8,6 +8,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.SpyBean;
+import org.springframework.cache.CacheManager;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import static org.junit.Assert.assertEquals;
@@ -25,8 +26,15 @@ public class BankServiceTest {
     @Autowired
     private BankService bankService;
 
+    @Autowired
+    CacheManager cacheManager;
+
     @Test
     public void getTransfer() {
+        createTransfer();
+    }
+
+    public Transfer createTransfer() {
 
         Transfer transfer = bankService.createTransfer(new Account(), new Account(), 1);
 
@@ -47,6 +55,21 @@ public class BankServiceTest {
         assertEquals(transfer, transfer4);
 
         verify(transferRepository, times(2)).readTransfer(transfer.getId());
+
+        return transfer;
+
+    }
+
+    @Test
+    public void archiveTransfer() {
+
+        Transfer transfer = createTransfer();
+
+        assertEquals(transfer, cacheManager.getCache("transfer").get(transfer.getId()).get());
+
+        bankService.archiveTransfer(transfer.getId());
+
+        assertNull(cacheManager.getCache("transfer").get(transfer.getId()));
 
     }
 

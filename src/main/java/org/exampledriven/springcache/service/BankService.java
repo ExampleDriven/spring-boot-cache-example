@@ -5,6 +5,7 @@ import org.exampledriven.springcache.domain.Transfer;
 import org.exampledriven.springcache.repository.TransferRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
@@ -43,6 +44,11 @@ public class BankService {
 
         return transferRepository.completeTransfer(id);
 
+    }
+
+    @CacheEvict
+    public Transfer archiveTransfer(int id) {
+        return transferRepository.archiveTransfer(id);
     }
 
 }

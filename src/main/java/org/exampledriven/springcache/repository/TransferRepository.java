@@ -52,5 +52,9 @@ public class TransferRepository {
         return transfer;
     }
 
+    public Transfer archiveTransfer(int id) {
+        Transfer remove = transfers.remove(id);
+        return remove;
+    }
 
 }
