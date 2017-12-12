@@ -11,6 +11,7 @@ import org.springframework.boot.test.mock.mockito.SpyBean;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
@@ -47,6 +48,11 @@ public class BankServiceTest {
 
         verify(transferRepository, times(3)).readTransfer(transfer.getId());
 
+    }
+
+    @Test
+    public void handleEmpty() {
+        assertNull(bankService.readTransfer(-1));
     }
 
 }
