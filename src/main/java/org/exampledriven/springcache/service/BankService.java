@@ -19,7 +19,7 @@ public class BankService {
 
     }
 
-    @Cacheable(value = "transfer", unless = "#result.status.name() == 'IN_PROGRESS'")
+    @Cacheable(value = "transfer", unless = "#result?.status?.name() == 'IN_PROGRESS'")
     public Transfer readTransfer(int id) {
         return transferRepository.readTransfer(id);
     }
