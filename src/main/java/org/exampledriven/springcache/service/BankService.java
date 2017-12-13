@@ -3,6 +3,7 @@ package org.exampledriven.springcache.service;
 import org.exampledriven.springcache.domain.Account;
 import org.exampledriven.springcache.domain.Transfer;
 import org.exampledriven.springcache.repository.TransferRepository;
+import org.exampledriven.springcache.service.util.TransferCache;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.CacheEvict;
@@ -33,6 +34,12 @@ public class BankService {
 
         return transfer;
     }
+
+    @TransferCache
+    public Transfer readTransfer(Transfer transfer) {
+        return transferRepository.readTransfer(transfer.getId());
+    }
+
 
     //keyGenerator could be locally overwritten like this
     //@CachePut(key = "#id")

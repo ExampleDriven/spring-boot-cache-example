@@ -30,8 +30,22 @@ public class BankServiceTest {
     CacheManager cacheManager;
 
     @Test
-    public void getTransfer() {
+    public void readTransfer() {
         createTransfer();
+    }
+
+    @Test
+    public void readTransferByObject() {
+
+        Transfer transfer = bankService.createTransfer(new Account(), new Account(), 1);
+
+        Transfer transfer1 = bankService.readTransfer(transfer);
+        Transfer transfer2 = bankService.readTransfer(transfer.getId(), false);
+
+        assertEquals(transfer, transfer1);
+        assertEquals(transfer, transfer2);
+
+        verify(transferRepository, times(1)).readTransfer(transfer.getId());
     }
 
     public Transfer createTransfer() {

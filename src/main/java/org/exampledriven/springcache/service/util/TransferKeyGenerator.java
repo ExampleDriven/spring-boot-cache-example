@@ -1,4 +1,4 @@
-package org.exampledriven.springcache.service;
+package org.exampledriven.springcache.service.util;
 
 import org.springframework.cache.interceptor.KeyGenerator;
 import org.springframework.stereotype.Component;
